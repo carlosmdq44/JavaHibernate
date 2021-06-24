@@ -1,0 +1,106 @@
+//Queries HQL/JPQL
+//Referencia de HQL/JPQL:
+https://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#hql
+
+--Queries de tipo select
+
+1) Consulta de todos los Alumnos
+
+from Alumno
+
+2) Consulta del Alumno con id = 4
+
+from Alumno a 
+where a.idAlumno = 4
+
+3) Consulta del alumno con nombre
+
+from Alumno a where a.nombre = 'Juan'
+
+4) Consulta de datos individuales, se crea un arreglo de tipo object de 3 columnas
+
+select a.nombre as Nombre, 
+a.apellidoPaterno as Paterno, 
+a.apellidoMaterno as Materno
+from Alumno a
+
+5) Obtiene el objeto alumno y el id, se crea un arreglo de tipo Object con 2 columnas
+
+select a, a.idAlumno from Alumno a
+
+6) Obtiene la lista de alumnos, utilizando el contructor del idAlumno 
+
+select new Alumno( a.idAlumno) from Alumno a
+
+
+--Queries usando Funciones, Expresiones y Operadores
+
+7) Regresa el valor mínimo y máximo del idAlumno (Scalar results)
+
+select min(a.idAlumno) as MinId, 
+max(a.idAlumno) as MaxId, 
+count(a.idAlumno) as Count
+from Alumno a
+
+8) Extrae los nombres de alumnos que son distintos
+
+select distinct a.nombre from Alumno a
+
+9)  Concatena y Convierte a mayúsculas el nombre y apellido
+
+select upper (a.nombre) || ' ' || upper (a.apellidoPaterno) from Alumno a
+
+-- Queries parametrizados
+
+11) Obtiene el objeto alumno con id igual al parámetro 
+
+from Alumno a where a.idAlumno = :id
+
+12) Obtiene los alumnos en un rango de ids (no se puede ejecutar en la consola)
+
+from Alumno a where a.idAlumno in (:lista)
+
+13) Obtiene los alumnos que contenga una letra a, sin importar mayúscula/minúsculas
+
+from Alumno a where upper(a.nombre) like upper(:param1)
+
+--Algunos queries extras
+14) Usa funciones propias del Dialect, en este caso de mysql (funcion now)
+
+select a, now() from Alumno a where a.apellidoMaterno is not null
+
+15) Uso de between 
+
+from Alumno a where a.idAlumno not between 2 and 5
+
+16) Uso del ordenamiento
+
+select a from Alumno a
+where a.idAlumno > 3
+order by a.nombre desc, a.apellidoPaterno desc
+
+17) Uso de agrupación
+
+select count(a.idAlumno) 
+from Alumno a where a.idAlumno > 0 
+group by a.nombre 
+having count(a.idAlumno) > 0
+
+18) Uso de un subquery (el soporte de esta funcionalidad depende de la base de datos utilizada)
+
+select a from Alumno a
+where a.idAlumno in ( 
+	select min(a1.idAlumno) from Alumno a1)
+
+19) Uso de join con lazy loading
+
+from Alumno a
+join a.domicilio d
+join a.contacto c
+
+20) Uso de left join con eager loading
+
+from Alumno a
+left join fetch a.domicilio d
+left join fetch a.contacto c
+

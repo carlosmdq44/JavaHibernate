@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="HibernateJpaPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <class>com.gm.sga.dto.Rol</class>
+    <class>com.gm.sga.dto.Sucursal</class>
+    <class>com.gm.sga.dto.Curso</class>
+    <class>com.gm.sga.dto.Alumno</class>
+    <class>com.gm.sga.dto.Usuario</class>
+    <class>com.gm.sga.dto.Contacto</class>
+    <class>com.gm.sga.dto.Pago</class>
+    <class>com.gm.sga.dto.Domicilio</class>
+    <class>com.gm.sga.dto.Asignacion</class>
+    <class>com.gm.sga.dto.Instructor</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sga_db"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.password" value="admin"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="hibernate.format_sql" value="true" />
+    </properties>
+  </persistence-unit>
+</persistence>
+
